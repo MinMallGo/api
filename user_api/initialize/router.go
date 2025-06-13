@@ -1,20 +1,16 @@
 package initialize
 
 import (
-	"api/user_api/api"
+	"api/user_api/router"
 	"github.com/gin-gonic/gin"
 )
 
 // InitRouter 初始化路由
-func InitRouter() *gin.Engine {
-	g := gin.Default()
+func InitRouter(g *gin.Engine) *gin.Engine {
 	group := g.Group("/v1")
-	{
-		user := group.Group("/user")
-		{
-			user.GET("list", api.GetUserList)
-			user.POST("pwd_login", api.PasswordLogin)
-		}
-	}
+	// 注册用户路由
+	router.RegisterUserRouter(group)
+	// 注册基础路由
+	router.RegisterUtilRouter(group)
 	return g
 }

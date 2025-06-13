@@ -6,6 +6,14 @@ type UserListForm struct {
 }
 
 type PasswordLoginForm struct {
+	Mobile    string `json:"mobile" binding:"required,len=11,mobile"`
+	Password  string `json:"password" binding:"required,min=3,max=20"`
+	Captcha   string `json:"captcha" binding:"required,min=1,max=20"`
+	CaptchaID string `json:"captcha_id" binding:"required,min=1,max=20"`
+}
+
+type UserCreateForm struct {
 	Mobile   string `json:"mobile" binding:"required,len=11,mobile"`
+	Nickname string `json:"nickname" binding:"required,min=1,max=20"`
 	Password string `json:"password" binding:"required,min=3,max=20"`
 }
