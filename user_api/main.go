@@ -29,6 +29,8 @@ func main() {
 	initialize.InitCustomizeValidator()
 	// 初始化redis连接
 	initialize.InitRedis()
+	// 初始化grpc user-service 的连接
+	initialize.InitUserSrv()
 
 	port := global.Cfg.Port
 	zap.L().Info("starting http server on port", zap.Int("port", port))

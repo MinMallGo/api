@@ -16,9 +16,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/hashicorp/consul/api"
 	"go.uber.org/zap"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/status"
 	"log"
 	"net/http"
@@ -98,33 +96,6 @@ func FilterService(name string) (map[string]*api.AgentService, error) {
 }
 
 func GetUserList(ctx *gin.Context) {
-	/*
-		1. 连接grpc服务
-		2. 调用
-		3. 处理返回值
-		4. 返回
-	*/
-	/*
-		1. 从consul中获取服务，
-		2. 通过服务获取ip和端口
-	*/
-	srv, err := FilterService(global.Cfg.UserServer.Name)
-	if err != nil || srv == nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{
-			"msg": fmt.Sprintf("获取用户服务失败%v", err),
-		})
-	}
-	host, port := "", 0
-	for _, v := range srv {
-		host = v.Address
-		port = v.Port
-	}
-
-	conn, err := grpc.NewClient(fmt.Sprintf("%s:%d", host, port), grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		HandleGrpcErr(ctx, err)
-	}
-	defer conn.Close()
 	pageInfo := &forms.UserListForm{}
 	if err := ctx.ShouldBind(pageInfo); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -134,8 +105,7 @@ func GetUserList(ctx *gin.Context) {
 		return
 	}
 
-	userClient := proto.NewUserClient(conn)
-	list, err := userClient.GetUserList(context.Background(), &proto.PaginateInfo{
+	list, err := global.UserSrv.GetUserList(context.Background(), &proto.PaginateInfo{
 		Page: uint32(pageInfo.Page),
 		Size: uint32(pageInfo.Size),
 	})
@@ -180,26 +150,19 @@ func PasswordLogin(ctx *gin.Context) {
 		2. 通过用户信息比对的密码查询grpc中的密码
 		3. 对比密码并登录
 	*/
-	conn, err := grpc.NewClient(fmt.Sprintf("%s:%d", global.Cfg.UserServer.Host, global.Cfg.UserServer.Port), grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		HandleGrpcErr(ctx, err)
-	}
-	defer conn.Close()
-
-	userClient := proto.NewUserClient(conn)
-	user, err := userClient.GetUserByMobile(context.Background(), &proto.MobileRequest{Mobile: param.Mobile})
+	user, err := global.UserSrv.GetUserByMobile(context.Background(), &proto.MobileRequest{Mobile: param.Mobile})
 	if err != nil {
 		HandleGrpcErr(ctx, err)
 		return
 	}
 
-	login(ctx, param.Password, user, userClient)
+	login(ctx, param.Password, user)
 
 }
 
-func login(ctx *gin.Context, password string, user *proto.UserInfoResponse, userClient proto.UserClient) {
+func login(ctx *gin.Context, password string, user *proto.UserInfoResponse) {
 	// 对比密码
-	check, err := userClient.CheckPassword(context.Background(), &proto.CheckPasswordRequest{
+	check, err := global.UserSrv.CheckPassword(context.Background(), &proto.CheckPasswordRequest{
 		Password:        password,
 		EncryptPassword: user.Password,
 	})
@@ -255,14 +218,7 @@ func UserCreate(ctx *gin.Context) {
 		return
 	}
 
-	conn, err := grpc.NewClient(fmt.Sprintf("%s:%d", global.Cfg.UserServer.Host, global.Cfg.UserServer.Port), grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		HandleGrpcErr(ctx, err)
-	}
-	defer conn.Close()
-
-	userClient := proto.NewUserClient(conn)
-	user, err := userClient.CreateUser(context.Background(), &proto.CreateUserRequest{
+	user, err := global.UserSrv.CreateUser(context.Background(), &proto.CreateUserRequest{
 		NickName: param.Nickname,
 		Password: param.Password,
 		Mobile:   param.Mobile,
@@ -273,5 +229,5 @@ func UserCreate(ctx *gin.Context) {
 	}
 
 	// 调用一下登录
-	login(ctx, param.Password, user, userClient)
+	login(ctx, param.Password, user)
 }
