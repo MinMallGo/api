@@ -14,6 +14,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/hashicorp/consul/api"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -85,6 +86,17 @@ func HandleValidatorErr(c *gin.Context, err error) {
 	return
 }
 
+func FilterService(name string) (map[string]*api.AgentService, error) {
+	config := api.DefaultConfig()
+	config.Address = fmt.Sprintf("%s:%d", global.Cfg.Consul.Host, global.Cfg.Consul.Port)
+	client, err := api.NewClient(config)
+	if err != nil {
+		panic(err)
+	}
+	services, err := client.Agent().ServicesWithFilter(fmt.Sprintf(`ID == "%s"`, name))
+	return services, err
+}
+
 func GetUserList(ctx *gin.Context) {
 	/*
 		1. 连接grpc服务
@@ -92,7 +104,23 @@ func GetUserList(ctx *gin.Context) {
 		3. 处理返回值
 		4. 返回
 	*/
-	conn, err := grpc.NewClient(fmt.Sprintf("%s:%d", global.Cfg.UserServer.Host, global.Cfg.UserServer.Port), grpc.WithTransportCredentials(insecure.NewCredentials()))
+	/*
+		1. 从consul中获取服务，
+		2. 通过服务获取ip和端口
+	*/
+	srv, err := FilterService(global.Cfg.UserServer.Name)
+	if err != nil || srv == nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"msg": fmt.Sprintf("获取用户服务失败%v", err),
+		})
+	}
+	host, port := "", 0
+	for _, v := range srv {
+		host = v.Address
+		port = v.Port
+	}
+
+	conn, err := grpc.NewClient(fmt.Sprintf("%s:%d", host, port), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		HandleGrpcErr(ctx, err)
 	}
@@ -144,7 +172,7 @@ func PasswordLogin(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"msg": "验证码错误",
 		})
-		return
+		//return
 	}
 
 	/*
