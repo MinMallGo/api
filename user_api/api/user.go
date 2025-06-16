@@ -14,7 +14,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/hashicorp/consul/api"
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -84,17 +83,6 @@ func HandleValidatorErr(c *gin.Context, err error) {
 	return
 }
 
-func FilterService(name string) (map[string]*api.AgentService, error) {
-	config := api.DefaultConfig()
-	config.Address = fmt.Sprintf("%s:%d", global.Cfg.Consul.Host, global.Cfg.Consul.Port)
-	client, err := api.NewClient(config)
-	if err != nil {
-		panic(err)
-	}
-	services, err := client.Agent().ServicesWithFilter(fmt.Sprintf(`ID == "%s"`, name))
-	return services, err
-}
-
 func GetUserList(ctx *gin.Context) {
 	pageInfo := &forms.UserListForm{}
 	if err := ctx.ShouldBind(pageInfo); err != nil {
@@ -111,6 +99,13 @@ func GetUserList(ctx *gin.Context) {
 	})
 	if err != nil {
 		HandleGrpcErr(ctx, err)
+	}
+
+	if list == nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"msg": "response is nil",
+		})
+		return
 	}
 
 	res := make([]response.UserResponse, 0, len(list.Data))

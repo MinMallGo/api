@@ -4,14 +4,27 @@ import (
 	"api/user_api/global"
 	"api/user_api/proto"
 	"fmt"
+	"github.com/hashicorp/consul/api"
+	_ "github.com/mbobakov/grpc-consul-resolver" // It's important
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-
-	"github.com/hashicorp/consul/api"
 )
 
 func InitUserSrv() {
+	conn, err := grpc.NewClient(
+		fmt.Sprintf(`consul://%s:%d/%s?wait=14s`, global.Cfg.Consul.Host, global.Cfg.Consul.Port, global.Cfg.UserServer.Name),
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy": "round_robin"}`),
+	)
+	if err != nil {
+		zap.L().Fatal("【InitUserSrv】服务获取失败：", zap.Error(err))
+	}
+
+	global.UserSrv = proto.NewUserClient(conn)
+}
+
+func InitUserSrvDeprecated() {
 	/*
 		1. 通过配置文件获取consul的连接信息
 		2. 通过服务发现获取服务
