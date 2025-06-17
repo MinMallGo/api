@@ -4,6 +4,6 @@
   "username": "nacos",
   "password": "nacos",
   "namespace": "2d93684b-5305-4354-9172-084f8706b9f3",
-  "data_id": "user-srv",
+  "data_id": "user-api",
   "group": "dev"
 }
