@@ -3,7 +3,6 @@ package middleware
 import (
 	"api/goods_api/global"
 	"api/goods_api/structure"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -21,7 +20,6 @@ func JwtAuth() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		log.Println("token:", token)
 		j := NewJwt()
 		claim, err := j.JwtParse(token)
 		if err != nil {
@@ -54,7 +52,6 @@ func (j *Jwt) CreateToken(claims structure.MyClaims) (string, error) {
 
 func (j *Jwt) JwtParse(tokenString string) (*structure.MyClaims, error) {
 	claims := &structure.MyClaims{}
-
 	_, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) { return j.signingKey, nil })
 	if err != nil {
 		return claims, err

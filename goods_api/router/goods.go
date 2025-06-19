@@ -2,13 +2,15 @@ package router
 
 import (
 	"api/goods_api/api/goods"
+	"api/goods_api/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
 func RegisterGoodsRouter(group *gin.RouterGroup) {
-	user := group.Group("/goods")
+	g := group.Group("/goods")
 	{
-		user.GET("list", goods.List)
+		g.GET("list", goods.List)
+		g.POST("create", middleware.JwtAuth(), middleware.AdminAuth(), goods.Create)
 	}
 }
