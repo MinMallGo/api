@@ -2,7 +2,9 @@ package config
 
 type Config struct {
 	Name       string    `mapstructure:"name" json:"name"`
+	Host       string    `mapstructure:"host" json:"host"`
 	Port       int       `mapstructure:"port" json:"port"`
+	Tags       []string  `mapstructure:"tags" json:"tags"`
 	UserServer UserSrv   `mapstructure:"user_srv" json:"user_srv"`
 	Jwt        JwtSrv    `mapstructure:"jwt" json:"jwt"`
 	Redis      RedisCnf  `mapstructure:"redis" json:"redis"`
@@ -10,8 +12,6 @@ type Config struct {
 }
 
 type UserSrv struct {
-	Host string `mapstructure:"host" json:"host"`
-	Port int    `mapstructure:"port" json:"port"`
 	Name string `mapstructure:"name" json:"name"`
 }
 
