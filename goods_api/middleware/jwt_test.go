@@ -1,13 +1,14 @@
 package middleware
 
 import (
-	config2 "api/user_api/config"
-	"api/user_api/global"
-	"api/user_api/structure"
-	"github.com/golang-jwt/jwt/v5"
+	config2 "api/goods_api/config"
+	"api/goods_api/global"
+	"api/goods_api/structure"
 	"log"
 	"testing"
 	"time"
+
+	"github.com/golang-jwt/jwt/v5"
 )
 
 func TestToken(t *testing.T) {
@@ -18,7 +19,7 @@ func TestToken(t *testing.T) {
 	}
 	j := NewJwt()
 	token, err := j.CreateToken(structure.MyClaims{
-		ID:              1,
+		ID:              11,
 		NickName:        "ddff",
 		AuthorizationId: 2,
 		RegisteredClaims: jwt.RegisteredClaims{
