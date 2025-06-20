@@ -690,6 +690,7 @@ type UpdateGoodsInfo struct {
 	ImageUrl        []string               `protobuf:"bytes,16,rep,name=imageUrl,proto3" json:"imageUrl,omitempty"`
 	Description     []string               `protobuf:"bytes,17,rep,name=description,proto3" json:"description,omitempty"`
 	GoodsFrontImage string                 `protobuf:"bytes,18,opt,name=goodsFrontImage,proto3" json:"goodsFrontImage,omitempty"`
+	IsHot           bool                   `protobuf:"varint,19,opt,name=isHot,proto3" json:"isHot,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -848,6 +849,13 @@ func (x *UpdateGoodsInfo) GetGoodsFrontImage() string {
 		return x.GoodsFrontImage
 	}
 	return ""
+}
+
+func (x *UpdateGoodsInfo) GetIsHot() bool {
+	if x != nil {
+		return x.IsHot
+	}
+	return false
 }
 
 type GoodsInfoRequest struct {
@@ -1073,7 +1081,7 @@ const file_goods_proto_rawDesc = "" +
 	"\vdescription\x18\x11 \x03(\tR\vdescription\x12(\n" +
 	"\x0fgoodsFrontImage\x18\x12 \x01(\tR\x0fgoodsFrontImage\"!\n" +
 	"\x0fDeleteGoodsInfo\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\"\xff\x03\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id\"\x95\x04\n" +
 	"\x0fUpdateGoodsInfo\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x1e\n" +
 	"\n" +
@@ -1097,7 +1105,8 @@ const file_goods_proto_rawDesc = "" +
 	"goodsBrief\x12\x1a\n" +
 	"\bimageUrl\x18\x10 \x03(\tR\bimageUrl\x12 \n" +
 	"\vdescription\x18\x11 \x03(\tR\vdescription\x12(\n" +
-	"\x0fgoodsFrontImage\x18\x12 \x01(\tR\x0fgoodsFrontImage\"\"\n" +
+	"\x0fgoodsFrontImage\x18\x12 \x01(\tR\x0fgoodsFrontImage\x12\x14\n" +
+	"\x05isHot\x18\x13 \x01(\bR\x05isHot\"\"\n" +
 	"\x10GoodsInfoRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\"?\n" +
 	"\x19CategoryBriefInfoResponse\x12\x0e\n" +
@@ -1105,12 +1114,11 @@ const file_goods_proto_rawDesc = "" +
 	"\x04name\x18\x02 \x01(\tR\x04name\"=\n" +
 	"\x15CategoryFilterRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\rR\x02id\x12\x14\n" +
-	"\x05isTab\x18\x02 \x01(\bR\x05isTab2\xd2\x02\n" +
+	"\x05isTab\x18\x02 \x01(\bR\x05isTab2\xd3\x02\n" +
 	"\x05Goods\x124\n" +
 	"\tGoodsList\x12\x13.GoodsFilterRequest\x1a\x12.GoodsListResponse\x124\n" +
-	"\rBatchGetGoods\x12\x0f.BatchGoodsInfo\x1a\x12.GoodsListResponse\x122\n" +
-	"\n" +
-	"CreateGods\x12\x10.CreateGoodsInfo\x1a\x12.GoodsInfoResponse\x127\n" +
+	"\rBatchGetGoods\x12\x0f.BatchGoodsInfo\x1a\x12.GoodsListResponse\x123\n" +
+	"\vCreateGoods\x12\x10.CreateGoodsInfo\x1a\x12.GoodsInfoResponse\x127\n" +
 	"\vDeleteGoods\x12\x10.DeleteGoodsInfo\x1a\x16.google.protobuf.Empty\x127\n" +
 	"\vUpdateGoods\x12\x10.UpdateGoodsInfo\x1a\x16.google.protobuf.Empty\x127\n" +
 	"\x0eGetGoodsDetail\x12\x11.GoodsInfoRequest\x1a\x12.GoodsInfoResponseB\tZ\a.;protob\x06proto3"
@@ -1148,13 +1156,13 @@ var file_goods_proto_depIdxs = []int32{
 	10, // 2: GoodsInfoResponse.brand:type_name -> BrandInfoResponse
 	0,  // 3: Goods.GoodsList:input_type -> GoodsFilterRequest
 	2,  // 4: Goods.BatchGetGoods:input_type -> BatchGoodsInfo
-	4,  // 5: Goods.CreateGods:input_type -> CreateGoodsInfo
+	4,  // 5: Goods.CreateGoods:input_type -> CreateGoodsInfo
 	5,  // 6: Goods.DeleteGoods:input_type -> DeleteGoodsInfo
 	6,  // 7: Goods.UpdateGoods:input_type -> UpdateGoodsInfo
 	7,  // 8: Goods.GetGoodsDetail:input_type -> GoodsInfoRequest
 	1,  // 9: Goods.GoodsList:output_type -> GoodsListResponse
 	1,  // 10: Goods.BatchGetGoods:output_type -> GoodsListResponse
-	3,  // 11: Goods.CreateGods:output_type -> GoodsInfoResponse
+	3,  // 11: Goods.CreateGoods:output_type -> GoodsInfoResponse
 	11, // 12: Goods.DeleteGoods:output_type -> google.protobuf.Empty
 	11, // 13: Goods.UpdateGoods:output_type -> google.protobuf.Empty
 	3,  // 14: Goods.GetGoodsDetail:output_type -> GoodsInfoResponse

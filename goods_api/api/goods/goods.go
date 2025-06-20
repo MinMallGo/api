@@ -24,7 +24,7 @@ func HandleGrpcErr(c *gin.Context, err error) {
 		case codes.Unavailable:
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"code": sts.Code(),
-				"msg":  sts.Message(),
+				"msg":  "Goods Service Unavailable",
 			})
 		case codes.NotFound:
 			c.JSON(http.StatusNotFound, gin.H{
@@ -50,7 +50,7 @@ func HandleGrpcErr(c *gin.Context, err error) {
 	}
 }
 
-func removeTopStruct(fields map[string]string) map[string]string {
+func RemoveTopStruct(fields map[string]string) map[string]string {
 	rsp := map[string]string{}
 	for field, err := range fields {
 		rsp[field[strings.Index(field, ".")+1:]] = err
@@ -67,12 +67,8 @@ func HandleValidatorErr(c *gin.Context, err error) {
 		})
 		return
 	}
-	for _, fieldError := range errs {
-		log.Println(fieldError.Field())
-
-	}
 	c.JSON(http.StatusOK, gin.H{
-		"msg": removeTopStruct(errs.Translate(global.Trans)),
+		"msg": RemoveTopStruct(errs.Translate(global.Trans)),
 	})
 	return
 }
@@ -116,7 +112,7 @@ func List(c *gin.Context) {
 	}
 
 	list, err := global.GoodsSrv.Goods.GoodsList(context.Background(), req)
-	log.Println(list, err)
+
 	if err != nil {
 		HandleGrpcErr(c, err)
 		return
@@ -129,11 +125,96 @@ func List(c *gin.Context) {
 func Create(c *gin.Context) {
 	params := &forms.GoodsCreate{}
 	if err := c.ShouldBind(params); err != nil {
-		HandleGrpcErr(c, err)
+		HandleValidatorErr(c, err)
+		return
 	}
 
 	// 整理然后发送请求
-	goods, err := global.GoodsSrv.Goods.CreateGods(context.Background(), &proto.CreateGoodsInfo{
+	goods, err := global.GoodsSrv.Goods.CreateGoods(context.Background(), &proto.CreateGoodsInfo{
+		CategoryId:      params.CategoryID,
+		BrandId:         params.BrandID,
+		ShipFree:        params.ShipFree,
+		Stock:           params.Stock,
+		Name:            params.Name,
+		GoodsSn:         params.GoodsSn,
+		MarketPrice:     params.MarketPrice,
+		ShopPrice:       params.ShopPrice,
+		GoodsBrief:      params.GoodsBrief,
+		ImageUrl:        params.ImageUrl,
+		Description:     params.Description,
+		GoodsFrontImage: params.GoodsFrontImage,
+	})
+	// TODO 库存服务  分布式事务的一致性
+	if err != nil {
+		HandleGrpcErr(c, err)
+		return
+	}
+	c.JSON(http.StatusOK, goods)
+	return
+}
+
+func Delete(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, "参数错误")
+		return
+	}
+
+	_, err = global.GoodsSrv.Goods.DeleteGoods(context.Background(), &proto.DeleteGoodsInfo{
+		Id: int32(id),
+	})
+	if err != nil {
+		HandleGrpcErr(c, err)
+		return
+	}
+
+	c.Status(http.StatusOK)
+	return
+}
+
+func UpdateStatus(c *gin.Context) {
+	params := &forms.UpdateStatus{}
+	if err := c.ShouldBind(params); err != nil {
+		HandleValidatorErr(c, err)
+		return
+	}
+
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, "参数错误")
+		return
+	}
+
+	_, err = global.GoodsSrv.Goods.UpdateGoods(context.Background(), &proto.UpdateGoodsInfo{
+		Id:     int32(id),
+		IsNew:  params.IsNew,
+		OnSale: params.IsOnSale,
+		IsHot:  params.IsHot,
+	})
+	if err != nil {
+		HandleGrpcErr(c, err)
+		return
+	}
+	c.Status(http.StatusOK)
+	return
+}
+
+func Update(c *gin.Context) {
+	params := &forms.GoodsCreate{}
+	if err := c.ShouldBind(params); err != nil {
+		HandleValidatorErr(c, err)
+		return
+	}
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, "参数异常")
+		return
+	}
+	_, err = global.GoodsSrv.Goods.UpdateGoods(context.Background(), &proto.UpdateGoodsInfo{
+		Id:              int32(id),
 		CategoryId:      params.CategoryID,
 		BrandId:         params.BrandID,
 		ShipFree:        params.ShipFree,
@@ -151,6 +232,18 @@ func Create(c *gin.Context) {
 		HandleGrpcErr(c, err)
 		return
 	}
-	c.JSON(http.StatusOK, goods)
+	c.Status(http.StatusOK)
+	return
+}
+
+func Stock(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, "参数异常")
+		return
+	}
+	log.Println(id)
+	// TODO 查询库存
 	return
 }

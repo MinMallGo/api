@@ -56,3 +56,9 @@ type GoodsCreate struct {
 	// GoodsFrontImage 商品封面图URL，必须提供且为有效的URL
 	GoodsFrontImage string `json:"goods_front_image" form:"goods_front_image" binding:"required,url"`
 }
+
+type UpdateStatus struct {
+	IsNew    bool `json:"is_new" form:"is_new" binding:"omitempty"`
+	IsHot    bool `json:"is_hot" form:"is_hot" binding:"omitempty"`
+	IsOnSale bool `json:"is_on_sale" form:"is_on_sale" binding:"omitempty"`
+}

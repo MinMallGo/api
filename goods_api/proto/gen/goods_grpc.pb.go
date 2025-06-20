@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	Goods_GoodsList_FullMethodName      = "/Goods/GoodsList"
 	Goods_BatchGetGoods_FullMethodName  = "/Goods/BatchGetGoods"
-	Goods_CreateGods_FullMethodName     = "/Goods/CreateGods"
+	Goods_CreateGoods_FullMethodName    = "/Goods/CreateGoods"
 	Goods_DeleteGoods_FullMethodName    = "/Goods/DeleteGoods"
 	Goods_UpdateGoods_FullMethodName    = "/Goods/UpdateGoods"
 	Goods_GetGoodsDetail_FullMethodName = "/Goods/GetGoodsDetail"
@@ -35,7 +35,7 @@ type GoodsClient interface {
 	// 商品
 	GoodsList(ctx context.Context, in *GoodsFilterRequest, opts ...grpc.CallOption) (*GoodsListResponse, error)
 	BatchGetGoods(ctx context.Context, in *BatchGoodsInfo, opts ...grpc.CallOption) (*GoodsListResponse, error)
-	CreateGods(ctx context.Context, in *CreateGoodsInfo, opts ...grpc.CallOption) (*GoodsInfoResponse, error)
+	CreateGoods(ctx context.Context, in *CreateGoodsInfo, opts ...grpc.CallOption) (*GoodsInfoResponse, error)
 	DeleteGoods(ctx context.Context, in *DeleteGoodsInfo, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateGoods(ctx context.Context, in *UpdateGoodsInfo, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetGoodsDetail(ctx context.Context, in *GoodsInfoRequest, opts ...grpc.CallOption) (*GoodsInfoResponse, error)
@@ -69,10 +69,10 @@ func (c *goodsClient) BatchGetGoods(ctx context.Context, in *BatchGoodsInfo, opt
 	return out, nil
 }
 
-func (c *goodsClient) CreateGods(ctx context.Context, in *CreateGoodsInfo, opts ...grpc.CallOption) (*GoodsInfoResponse, error) {
+func (c *goodsClient) CreateGoods(ctx context.Context, in *CreateGoodsInfo, opts ...grpc.CallOption) (*GoodsInfoResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GoodsInfoResponse)
-	err := c.cc.Invoke(ctx, Goods_CreateGods_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Goods_CreateGoods_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -116,7 +116,7 @@ type GoodsServer interface {
 	// 商品
 	GoodsList(context.Context, *GoodsFilterRequest) (*GoodsListResponse, error)
 	BatchGetGoods(context.Context, *BatchGoodsInfo) (*GoodsListResponse, error)
-	CreateGods(context.Context, *CreateGoodsInfo) (*GoodsInfoResponse, error)
+	CreateGoods(context.Context, *CreateGoodsInfo) (*GoodsInfoResponse, error)
 	DeleteGoods(context.Context, *DeleteGoodsInfo) (*emptypb.Empty, error)
 	UpdateGoods(context.Context, *UpdateGoodsInfo) (*emptypb.Empty, error)
 	GetGoodsDetail(context.Context, *GoodsInfoRequest) (*GoodsInfoResponse, error)
@@ -136,8 +136,8 @@ func (UnimplementedGoodsServer) GoodsList(context.Context, *GoodsFilterRequest) 
 func (UnimplementedGoodsServer) BatchGetGoods(context.Context, *BatchGoodsInfo) (*GoodsListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BatchGetGoods not implemented")
 }
-func (UnimplementedGoodsServer) CreateGods(context.Context, *CreateGoodsInfo) (*GoodsInfoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateGods not implemented")
+func (UnimplementedGoodsServer) CreateGoods(context.Context, *CreateGoodsInfo) (*GoodsInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateGoods not implemented")
 }
 func (UnimplementedGoodsServer) DeleteGoods(context.Context, *DeleteGoodsInfo) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteGoods not implemented")
@@ -205,20 +205,20 @@ func _Goods_BatchGetGoods_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Goods_CreateGods_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Goods_CreateGoods_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateGoodsInfo)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GoodsServer).CreateGods(ctx, in)
+		return srv.(GoodsServer).CreateGoods(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Goods_CreateGods_FullMethodName,
+		FullMethod: Goods_CreateGoods_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GoodsServer).CreateGods(ctx, req.(*CreateGoodsInfo))
+		return srv.(GoodsServer).CreateGoods(ctx, req.(*CreateGoodsInfo))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -293,8 +293,8 @@ var Goods_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Goods_BatchGetGoods_Handler,
 		},
 		{
-			MethodName: "CreateGods",
-			Handler:    _Goods_CreateGods_Handler,
+			MethodName: "CreateGoods",
+			Handler:    _Goods_CreateGoods_Handler,
 		},
 		{
 			MethodName: "DeleteGoods",
