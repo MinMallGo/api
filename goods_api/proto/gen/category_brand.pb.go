@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v6.31.0
-// source: category_banner.proto
+// source: category_brand.proto
 
 package proto
 
@@ -33,7 +33,7 @@ type CreateCategoryBrandInfo struct {
 
 func (x *CreateCategoryBrandInfo) Reset() {
 	*x = CreateCategoryBrandInfo{}
-	mi := &file_category_banner_proto_msgTypes[0]
+	mi := &file_category_brand_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -45,7 +45,7 @@ func (x *CreateCategoryBrandInfo) String() string {
 func (*CreateCategoryBrandInfo) ProtoMessage() {}
 
 func (x *CreateCategoryBrandInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_category_banner_proto_msgTypes[0]
+	mi := &file_category_brand_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -58,7 +58,7 @@ func (x *CreateCategoryBrandInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateCategoryBrandInfo.ProtoReflect.Descriptor instead.
 func (*CreateCategoryBrandInfo) Descriptor() ([]byte, []int) {
-	return file_category_banner_proto_rawDescGZIP(), []int{0}
+	return file_category_brand_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *CreateCategoryBrandInfo) GetId() int32 {
@@ -95,7 +95,7 @@ type CategoryBrandResponse struct {
 
 func (x *CategoryBrandResponse) Reset() {
 	*x = CategoryBrandResponse{}
-	mi := &file_category_banner_proto_msgTypes[1]
+	mi := &file_category_brand_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -107,7 +107,7 @@ func (x *CategoryBrandResponse) String() string {
 func (*CategoryBrandResponse) ProtoMessage() {}
 
 func (x *CategoryBrandResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_category_banner_proto_msgTypes[1]
+	mi := &file_category_brand_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -120,7 +120,7 @@ func (x *CategoryBrandResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CategoryBrandResponse.ProtoReflect.Descriptor instead.
 func (*CategoryBrandResponse) Descriptor() ([]byte, []int) {
-	return file_category_banner_proto_rawDescGZIP(), []int{1}
+	return file_category_brand_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *CategoryBrandResponse) GetId() int32 {
@@ -167,7 +167,7 @@ type DeleteCategoryBrandInfo struct {
 
 func (x *DeleteCategoryBrandInfo) Reset() {
 	*x = DeleteCategoryBrandInfo{}
-	mi := &file_category_banner_proto_msgTypes[2]
+	mi := &file_category_brand_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -179,7 +179,7 @@ func (x *DeleteCategoryBrandInfo) String() string {
 func (*DeleteCategoryBrandInfo) ProtoMessage() {}
 
 func (x *DeleteCategoryBrandInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_category_banner_proto_msgTypes[2]
+	mi := &file_category_brand_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -192,7 +192,7 @@ func (x *DeleteCategoryBrandInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteCategoryBrandInfo.ProtoReflect.Descriptor instead.
 func (*DeleteCategoryBrandInfo) Descriptor() ([]byte, []int) {
-	return file_category_banner_proto_rawDescGZIP(), []int{2}
+	return file_category_brand_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *DeleteCategoryBrandInfo) GetId() int32 {
@@ -213,7 +213,7 @@ type UpdateCategoryBrandInfo struct {
 
 func (x *UpdateCategoryBrandInfo) Reset() {
 	*x = UpdateCategoryBrandInfo{}
-	mi := &file_category_banner_proto_msgTypes[3]
+	mi := &file_category_brand_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -225,7 +225,7 @@ func (x *UpdateCategoryBrandInfo) String() string {
 func (*UpdateCategoryBrandInfo) ProtoMessage() {}
 
 func (x *UpdateCategoryBrandInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_category_banner_proto_msgTypes[3]
+	mi := &file_category_brand_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -238,7 +238,7 @@ func (x *UpdateCategoryBrandInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateCategoryBrandInfo.ProtoReflect.Descriptor instead.
 func (*UpdateCategoryBrandInfo) Descriptor() ([]byte, []int) {
-	return file_category_banner_proto_rawDescGZIP(), []int{3}
+	return file_category_brand_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *UpdateCategoryBrandInfo) GetId() int32 {
@@ -273,7 +273,7 @@ type CategoryBrandInfoRequest struct {
 
 func (x *CategoryBrandInfoRequest) Reset() {
 	*x = CategoryBrandInfoRequest{}
-	mi := &file_category_banner_proto_msgTypes[4]
+	mi := &file_category_brand_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -285,7 +285,7 @@ func (x *CategoryBrandInfoRequest) String() string {
 func (*CategoryBrandInfoRequest) ProtoMessage() {}
 
 func (x *CategoryBrandInfoRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_category_banner_proto_msgTypes[4]
+	mi := &file_category_brand_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -298,7 +298,7 @@ func (x *CategoryBrandInfoRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CategoryBrandInfoRequest.ProtoReflect.Descriptor instead.
 func (*CategoryBrandInfoRequest) Descriptor() ([]byte, []int) {
-	return file_category_banner_proto_rawDescGZIP(), []int{4}
+	return file_category_brand_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *CategoryBrandInfoRequest) GetId() int32 {
@@ -332,7 +332,7 @@ type CategoryBrandListResponse struct {
 
 func (x *CategoryBrandListResponse) Reset() {
 	*x = CategoryBrandListResponse{}
-	mi := &file_category_banner_proto_msgTypes[5]
+	mi := &file_category_brand_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -344,7 +344,7 @@ func (x *CategoryBrandListResponse) String() string {
 func (*CategoryBrandListResponse) ProtoMessage() {}
 
 func (x *CategoryBrandListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_category_banner_proto_msgTypes[5]
+	mi := &file_category_brand_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -357,7 +357,7 @@ func (x *CategoryBrandListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CategoryBrandListResponse.ProtoReflect.Descriptor instead.
 func (*CategoryBrandListResponse) Descriptor() ([]byte, []int) {
-	return file_category_banner_proto_rawDescGZIP(), []int{5}
+	return file_category_brand_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *CategoryBrandListResponse) GetTotal() int32 {
@@ -377,15 +377,13 @@ func (x *CategoryBrandListResponse) GetData() []*CategoryBrandResponse {
 type CategoryBrandRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	CategoryId    int32                  `protobuf:"varint,2,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
-	BrandId       int32                  `protobuf:"varint,3,opt,name=brand_id,json=brandId,proto3" json:"brand_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *CategoryBrandRequest) Reset() {
 	*x = CategoryBrandRequest{}
-	mi := &file_category_banner_proto_msgTypes[6]
+	mi := &file_category_brand_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -397,7 +395,7 @@ func (x *CategoryBrandRequest) String() string {
 func (*CategoryBrandRequest) ProtoMessage() {}
 
 func (x *CategoryBrandRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_category_banner_proto_msgTypes[6]
+	mi := &file_category_brand_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -410,7 +408,7 @@ func (x *CategoryBrandRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CategoryBrandRequest.ProtoReflect.Descriptor instead.
 func (*CategoryBrandRequest) Descriptor() ([]byte, []int) {
-	return file_category_banner_proto_rawDescGZIP(), []int{6}
+	return file_category_brand_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *CategoryBrandRequest) GetId() int32 {
@@ -420,25 +418,11 @@ func (x *CategoryBrandRequest) GetId() int32 {
 	return 0
 }
 
-func (x *CategoryBrandRequest) GetCategoryId() int32 {
-	if x != nil {
-		return x.CategoryId
-	}
-	return 0
-}
+var File_category_brand_proto protoreflect.FileDescriptor
 
-func (x *CategoryBrandRequest) GetBrandId() int32 {
-	if x != nil {
-		return x.BrandId
-	}
-	return 0
-}
-
-var File_category_banner_proto protoreflect.FileDescriptor
-
-const file_category_banner_proto_rawDesc = "" +
+const file_category_brand_proto_rawDesc = "" +
 	"\n" +
-	"\x15category_banner.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\vbrand.proto\x1a\x0ecategory.proto\"e\n" +
+	"\x14category_brand.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\vbrand.proto\x1a\x0ecategory.proto\"e\n" +
 	"\x17CreateCategoryBrandInfo\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x1f\n" +
 	"\vcategory_id\x18\x02 \x01(\x05R\n" +
@@ -465,12 +449,9 @@ const file_category_banner_proto_rawDesc = "" +
 	"\bbrand_id\x18\x03 \x01(\x05R\abrandId\"]\n" +
 	"\x19CategoryBrandListResponse\x12\x14\n" +
 	"\x05total\x18\x01 \x01(\x05R\x05total\x12*\n" +
-	"\x04data\x18\x03 \x03(\v2\x16.CategoryBrandResponseR\x04data\"b\n" +
+	"\x04data\x18\x03 \x03(\v2\x16.CategoryBrandResponseR\x04data\"&\n" +
 	"\x14CategoryBrandRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x1f\n" +
-	"\vcategory_id\x18\x02 \x01(\x05R\n" +
-	"categoryId\x12\x19\n" +
-	"\bbrand_id\x18\x03 \x01(\x05R\abrandId2\xf9\x02\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id2\xf9\x02\n" +
 	"\rCategoryBrand\x12G\n" +
 	"\x13CreateCategoryBrand\x12\x18.CreateCategoryBrandInfo\x1a\x16.CategoryBrandResponse\x12G\n" +
 	"\x13DeleteCategoryBrand\x12\x18.DeleteCategoryBrandInfo\x1a\x16.google.protobuf.Empty\x12G\n" +
@@ -479,19 +460,19 @@ const file_category_banner_proto_rawDesc = "" +
 	"\x10GetCategoryBrand\x12\x15.CategoryBrandRequest\x1a\x16.CategoryBrandResponseB\tZ\a.;protob\x06proto3"
 
 var (
-	file_category_banner_proto_rawDescOnce sync.Once
-	file_category_banner_proto_rawDescData []byte
+	file_category_brand_proto_rawDescOnce sync.Once
+	file_category_brand_proto_rawDescData []byte
 )
 
-func file_category_banner_proto_rawDescGZIP() []byte {
-	file_category_banner_proto_rawDescOnce.Do(func() {
-		file_category_banner_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_category_banner_proto_rawDesc), len(file_category_banner_proto_rawDesc)))
+func file_category_brand_proto_rawDescGZIP() []byte {
+	file_category_brand_proto_rawDescOnce.Do(func() {
+		file_category_brand_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_category_brand_proto_rawDesc), len(file_category_brand_proto_rawDesc)))
 	})
-	return file_category_banner_proto_rawDescData
+	return file_category_brand_proto_rawDescData
 }
 
-var file_category_banner_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_category_banner_proto_goTypes = []any{
+var file_category_brand_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_category_brand_proto_goTypes = []any{
 	(*CreateCategoryBrandInfo)(nil),   // 0: CreateCategoryBrandInfo
 	(*CategoryBrandResponse)(nil),     // 1: CategoryBrandResponse
 	(*DeleteCategoryBrandInfo)(nil),   // 2: DeleteCategoryBrandInfo
@@ -503,7 +484,7 @@ var file_category_banner_proto_goTypes = []any{
 	(*CategoryInfoResponse)(nil),      // 8: CategoryInfoResponse
 	(*emptypb.Empty)(nil),             // 9: google.protobuf.Empty
 }
-var file_category_banner_proto_depIdxs = []int32{
+var file_category_brand_proto_depIdxs = []int32{
 	7, // 0: CategoryBrandResponse.brand:type_name -> BrandInfoResponse
 	8, // 1: CategoryBrandResponse.category:type_name -> CategoryInfoResponse
 	1, // 2: CategoryBrandListResponse.data:type_name -> CategoryBrandResponse
@@ -524,9 +505,9 @@ var file_category_banner_proto_depIdxs = []int32{
 	0, // [0:3] is the sub-list for field type_name
 }
 
-func init() { file_category_banner_proto_init() }
-func file_category_banner_proto_init() {
-	if File_category_banner_proto != nil {
+func init() { file_category_brand_proto_init() }
+func file_category_brand_proto_init() {
+	if File_category_brand_proto != nil {
 		return
 	}
 	file_brand_proto_init()
@@ -535,17 +516,17 @@ func file_category_banner_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_category_banner_proto_rawDesc), len(file_category_banner_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_category_brand_proto_rawDesc), len(file_category_brand_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_category_banner_proto_goTypes,
-		DependencyIndexes: file_category_banner_proto_depIdxs,
-		MessageInfos:      file_category_banner_proto_msgTypes,
+		GoTypes:           file_category_brand_proto_goTypes,
+		DependencyIndexes: file_category_brand_proto_depIdxs,
+		MessageInfos:      file_category_brand_proto_msgTypes,
 	}.Build()
-	File_category_banner_proto = out.File
-	file_category_banner_proto_goTypes = nil
-	file_category_banner_proto_depIdxs = nil
+	File_category_brand_proto = out.File
+	file_category_brand_proto_goTypes = nil
+	file_category_brand_proto_depIdxs = nil
 }

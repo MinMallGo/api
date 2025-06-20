@@ -18,5 +18,11 @@ func InitRouter(g *gin.Engine) *gin.Engine {
 	router.RegisterGoodsRouter(group)
 	// 注册分类路由
 	router.RegisterCategoryRouter(group)
+	// 注册轮播图
+	router.RegisterBannerRouter(group)
+	// 注册品牌
+	router.RegisterBrandRouter(group)
+	// 注册品牌分类
+	router.RegisterCategoryBrandRouter(group)
 	return g
 }
