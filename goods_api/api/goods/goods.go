@@ -1,77 +1,16 @@
 package goods
 
 import (
+	"api/goods_api/api"
 	"api/goods_api/forms"
 	"api/goods_api/global"
 	proto "api/goods_api/proto/gen"
 	"context"
-	"errors"
+	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
 	"strconv"
-	"strings"
-
-	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
-
-func HandleGrpcErr(c *gin.Context, err error) {
-	sts, ok := status.FromError(err)
-	if ok {
-		switch sts.Code() {
-		case codes.Unavailable:
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"code": sts.Code(),
-				"msg":  "Goods Service Unavailable",
-			})
-		case codes.NotFound:
-			c.JSON(http.StatusNotFound, gin.H{
-				"code": sts.Code(),
-				"msg":  sts.Message(),
-			})
-		case codes.AlreadyExists:
-			c.JSON(http.StatusConflict, gin.H{
-				"code": sts.Code(),
-				"msg":  sts.Message(),
-			})
-		case codes.InvalidArgument:
-			c.JSON(http.StatusBadRequest, gin.H{
-				"code": sts.Code(),
-				"msg":  sts.Message(),
-			})
-		default:
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"code": 0,
-				"msg":  sts.Message(),
-			})
-		}
-	}
-}
-
-func RemoveTopStruct(fields map[string]string) map[string]string {
-	rsp := map[string]string{}
-	for field, err := range fields {
-		rsp[field[strings.Index(field, ".")+1:]] = err
-	}
-	return rsp
-}
-
-func HandleValidatorErr(c *gin.Context, err error) {
-	var errs validator.ValidationErrors
-	ok := errors.As(err, &errs)
-	if !ok {
-		c.JSON(http.StatusOK, gin.H{
-			"msg": err.Error(),
-		})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{
-		"msg": RemoveTopStruct(errs.Translate(global.Trans)),
-	})
-	return
-}
 
 func List(c *gin.Context) {
 	// 从get请求里面获取参数，然后解析参数并发送数据
@@ -114,7 +53,7 @@ func List(c *gin.Context) {
 	list, err := global.GoodsSrv.Goods.GoodsList(context.Background(), req)
 
 	if err != nil {
-		HandleGrpcErr(c, err)
+		api.HandleGrpcErr(c, err)
 		return
 	}
 	// TODO 定义返回信息然后自己去改
@@ -125,7 +64,7 @@ func List(c *gin.Context) {
 func Create(c *gin.Context) {
 	params := &forms.GoodsCreate{}
 	if err := c.ShouldBind(params); err != nil {
-		HandleValidatorErr(c, err)
+		api.HandleValidatorErr(c, err)
 		return
 	}
 
@@ -146,7 +85,7 @@ func Create(c *gin.Context) {
 	})
 	// TODO 库存服务  分布式事务的一致性
 	if err != nil {
-		HandleGrpcErr(c, err)
+		api.HandleGrpcErr(c, err)
 		return
 	}
 	c.JSON(http.StatusOK, goods)
@@ -165,7 +104,7 @@ func Delete(c *gin.Context) {
 		Id: int32(id),
 	})
 	if err != nil {
-		HandleGrpcErr(c, err)
+		api.HandleGrpcErr(c, err)
 		return
 	}
 
@@ -176,7 +115,7 @@ func Delete(c *gin.Context) {
 func UpdateStatus(c *gin.Context) {
 	params := &forms.UpdateStatus{}
 	if err := c.ShouldBind(params); err != nil {
-		HandleValidatorErr(c, err)
+		api.HandleValidatorErr(c, err)
 		return
 	}
 
@@ -194,7 +133,7 @@ func UpdateStatus(c *gin.Context) {
 		IsHot:  params.IsHot,
 	})
 	if err != nil {
-		HandleGrpcErr(c, err)
+		api.HandleGrpcErr(c, err)
 		return
 	}
 	c.Status(http.StatusOK)
@@ -204,7 +143,7 @@ func UpdateStatus(c *gin.Context) {
 func Update(c *gin.Context) {
 	params := &forms.GoodsCreate{}
 	if err := c.ShouldBind(params); err != nil {
-		HandleValidatorErr(c, err)
+		api.HandleValidatorErr(c, err)
 		return
 	}
 	idStr := c.Param("id")
@@ -229,7 +168,7 @@ func Update(c *gin.Context) {
 		GoodsFrontImage: params.GoodsFrontImage,
 	})
 	if err != nil {
-		HandleGrpcErr(c, err)
+		api.HandleGrpcErr(c, err)
 		return
 	}
 	c.Status(http.StatusOK)

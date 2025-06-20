@@ -16,5 +16,7 @@ func InitRouter(g *gin.Engine) *gin.Engine {
 	group := g.Group("/v1")
 	// 注册商品路由
 	router.RegisterGoodsRouter(group)
+	// 注册分类路由
+	router.RegisterCategoryRouter(group)
 	return g
 }
