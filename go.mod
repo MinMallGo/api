@@ -16,6 +16,7 @@ require (
 	github.com/mbobakov/grpc-consul-resolver v1.5.3
 	github.com/mojocn/base64Captcha v1.3.8
 	github.com/nacos-group/nacos-sdk-go/v2 v2.3.2
+	github.com/qiniu/go-sdk/v7 v7.25.4
 	github.com/redis/go-redis/v9 v9.10.0
 	github.com/spf13/viper v1.20.1
 	go.uber.org/zap v1.27.0
@@ -24,6 +25,8 @@ require (
 )
 
 require (
+	github.com/BurntSushi/toml v1.3.2 // indirect
+	github.com/alex-ant/gomath v0.0.0-20160516115720-89013a210a82 // indirect
 	github.com/alibabacloud-go/alibabacloud-gateway-pop v0.0.6 // indirect
 	github.com/alibabacloud-go/alibabacloud-gateway-spi v0.0.5 // indirect
 	github.com/alibabacloud-go/darabonba-array v0.1.0 // indirect
@@ -62,6 +65,7 @@ require (
 	github.com/go-playground/form v3.1.4+incompatible // indirect
 	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
+	github.com/gofrs/flock v0.8.1 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/golang/mock v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
@@ -115,4 +119,5 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	modernc.org/fileutil v1.0.0 // indirect
 )

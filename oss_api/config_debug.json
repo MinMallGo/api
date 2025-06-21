@@ -1,0 +1,9 @@
+{
+  "host": "192.168.3.5",
+  "port": 8848,
+  "username": "nacos",
+  "password": "nacos",
+  "namespace": "dd90c2ba-5c84-408b-8d62-e3f01e3f5419",
+  "data_id": "oss",
+  "group": "pro"
+}

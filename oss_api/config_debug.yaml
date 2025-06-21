@@ -1,0 +1,15 @@
+name: 'my-shop-debug'
+port: 8081
+user_srv:
+  host: '127.0.0.1'
+  port: 50001
+  name: 'user-service'
+jwt:
+  key: '3JAKLsijrLit0kK0oqyUBjCkUDyDdlwz1D0mXjAtgNc='
+redis:
+  host: '127.0.0.1'
+  port: 6379
+  password: ''
+consul:
+  host: 192.168.3.5
+  port: 8500
