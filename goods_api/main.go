@@ -36,7 +36,7 @@ func main() {
 	// 初始化redis连接
 	initialize.InitRedis()
 	// 初始化grpc user-service 的连接
-	initialize.InitUserSrv()
+	initialize.InitGoosSrv()
 	// 优雅地注册到注册中心
 	rc := register.NewConsulRegistry(global.Cfg.Consul.Host, global.Cfg.Consul.Port)
 	id := uuid.New().String()

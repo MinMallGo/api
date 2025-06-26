@@ -11,14 +11,14 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-func InitUserSrv() {
+func InitGoosSrv() {
 	conn, err := grpc.NewClient(
 		fmt.Sprintf(`consul://%s:%d/%s?wait=14s`, global.Cfg.Consul.Host, global.Cfg.Consul.Port, global.Cfg.GoodsServer.Name),
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy": "round_robin"}`),
 	)
 	if err != nil {
-		zap.L().Fatal("【InitUserSrv】服务获取失败：", zap.Error(err))
+		zap.L().Fatal("【InitGoosSrv】服务获取失败：", zap.Error(err))
 	}
 
 	global.GoodsSrv = &global.GoodsService{
