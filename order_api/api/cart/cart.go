@@ -7,25 +7,11 @@ import (
 	proto "api/order_api/proto/gen"
 	"api/order_api/structure"
 	"context"
-	"errors"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
 	"strconv"
 )
-
-func UserInfo(c *gin.Context) (*structure.MyClaims, error) {
-	claims, ok := c.Get(global.JWTUser)
-	if !ok {
-		return nil, errors.New("请先登录后操作")
-	}
-	myClaim, ok := claims.(*structure.MyClaims)
-	if !ok {
-		return nil, errors.New("请登录后操作")
-	}
-
-	return myClaim, nil
-}
 
 func Create(c *gin.Context) {
 	param := &forms.CartCreate{}
@@ -34,7 +20,7 @@ func Create(c *gin.Context) {
 		return
 	}
 	crv := global.CrossSrv
-	user, err := UserInfo(c)
+	user, err := api.UserInfo(c)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, err.Error())
 		return
@@ -89,7 +75,7 @@ func Delete(c *gin.Context) {
 		return
 	}
 
-	user, err := UserInfo(c)
+	user, err := api.UserInfo(c)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, err.Error())
 		return
@@ -109,7 +95,7 @@ func Delete(c *gin.Context) {
 
 func Update(c *gin.Context) {
 	crv := global.CrossSrv
-	user, err := UserInfo(c)
+	user, err := api.UserInfo(c)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, err.Error())
 		return
@@ -138,7 +124,7 @@ func Update(c *gin.Context) {
 }
 
 func List(c *gin.Context) {
-	user, err := UserInfo(c)
+	user, err := api.UserInfo(c)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, err.Error())
 		return
@@ -170,7 +156,7 @@ func List(c *gin.Context) {
 }
 
 func SelectGoods(c *gin.Context) {
-	user, err := UserInfo(c)
+	user, err := api.UserInfo(c)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, err.Error())
 		return

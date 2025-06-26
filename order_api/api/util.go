@@ -2,6 +2,7 @@ package api
 
 import (
 	"api/order_api/global"
+	"api/order_api/structure"
 	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -65,4 +66,17 @@ func HandleValidatorErr(c *gin.Context, err error) {
 		"msg": RemoveTopStruct(errs.Translate(global.Trans)),
 	})
 	return
+}
+
+func UserInfo(c *gin.Context) (*structure.MyClaims, error) {
+	claims, ok := c.Get(global.JWTUser)
+	if !ok {
+		return nil, errors.New("请先登录后操作")
+	}
+	myClaim, ok := claims.(*structure.MyClaims)
+	if !ok {
+		return nil, errors.New("请登录后操作")
+	}
+
+	return myClaim, nil
 }
