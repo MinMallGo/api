@@ -8,7 +8,6 @@ import (
 	"api/order_api/structure"
 	"context"
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 	"strconv"
 )
@@ -129,7 +128,7 @@ func List(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, err.Error())
 		return
 	}
-	log.Println(user.ID)
+
 	detail, err := global.CrossSrv.CartSrv.GetCartList(context.Background(), &proto.GetCartListReq{
 		UserId: int32(user.ID),
 	})
