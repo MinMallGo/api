@@ -24,13 +24,10 @@ const (
 type CreateOrderReq struct {
 	state           protoimpl.MessageState `protogen:"open.v1"`
 	UserID          int32                  `protobuf:"varint,1,opt,name=UserID,proto3" json:"UserID,omitempty"`
-	SubjectTitle    string                 `protobuf:"bytes,2,opt,name=SubjectTitle,proto3" json:"SubjectTitle,omitempty"`
-	OrderPrice      float64                `protobuf:"fixed64,3,opt,name=OrderPrice,proto3" json:"OrderPrice,omitempty"`
-	FinalPrice      float64                `protobuf:"fixed64,4,opt,name=FinalPrice,proto3" json:"FinalPrice,omitempty"`
-	Address         string                 `protobuf:"bytes,5,opt,name=Address,proto3" json:"Address,omitempty"`
-	RecipientName   string                 `protobuf:"bytes,6,opt,name=RecipientName,proto3" json:"RecipientName,omitempty"`
-	RecipientMobile string                 `protobuf:"bytes,7,opt,name=RecipientMobile,proto3" json:"RecipientMobile,omitempty"`
-	Message         string                 `protobuf:"bytes,8,opt,name=Message,proto3" json:"Message,omitempty"`
+	Address         string                 `protobuf:"bytes,2,opt,name=Address,proto3" json:"Address,omitempty"`
+	RecipientName   string                 `protobuf:"bytes,3,opt,name=RecipientName,proto3" json:"RecipientName,omitempty"`
+	RecipientMobile string                 `protobuf:"bytes,4,opt,name=RecipientMobile,proto3" json:"RecipientMobile,omitempty"`
+	Message         string                 `protobuf:"bytes,5,opt,name=Message,proto3" json:"Message,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -68,27 +65,6 @@ func (*CreateOrderReq) Descriptor() ([]byte, []int) {
 func (x *CreateOrderReq) GetUserID() int32 {
 	if x != nil {
 		return x.UserID
-	}
-	return 0
-}
-
-func (x *CreateOrderReq) GetSubjectTitle() string {
-	if x != nil {
-		return x.SubjectTitle
-	}
-	return ""
-}
-
-func (x *CreateOrderReq) GetOrderPrice() float64 {
-	if x != nil {
-		return x.OrderPrice
-	}
-	return 0
-}
-
-func (x *CreateOrderReq) GetFinalPrice() float64 {
-	if x != nil {
-		return x.FinalPrice
 	}
 	return 0
 }
@@ -175,8 +151,9 @@ func (x *CreateResp) GetOrderSn() string {
 
 type OrderListReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Page          int32                  `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize      int32                  `protobuf:"varint,4,opt,name=pageSize,proto3" json:"pageSize,omitempty"`
+	UserId        int32                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // 要user_id是为了方便区分是管理员全部查询还是普通用户就只查询自己的
+	Page          int32                  `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize      int32                  `protobuf:"varint,3,opt,name=pageSize,proto3" json:"pageSize,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -209,6 +186,13 @@ func (x *OrderListReq) ProtoReflect() protoreflect.Message {
 // Deprecated: Use OrderListReq.ProtoReflect.Descriptor instead.
 func (*OrderListReq) Descriptor() ([]byte, []int) {
 	return file_order_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *OrderListReq) GetUserId() int32 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
 }
 
 func (x *OrderListReq) GetPage() int32 {
@@ -281,6 +265,7 @@ type OrderDetailReq struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	OrderId       int32                  `protobuf:"varint,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
 	OrderSn       string                 `protobuf:"bytes,2,opt,name=order_sn,json=orderSn,proto3" json:"order_sn,omitempty"`
+	UserId        int32                  `protobuf:"varint,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -329,6 +314,13 @@ func (x *OrderDetailReq) GetOrderSn() string {
 	return ""
 }
 
+func (x *OrderDetailReq) GetUserId() int32 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
 type OrderDetailResp struct {
 	state           protoimpl.MessageState `protogen:"open.v1"`
 	UserID          int32                  `protobuf:"varint,1,opt,name=UserID,proto3" json:"UserID,omitempty"`
@@ -344,7 +336,8 @@ type OrderDetailResp struct {
 	RecipientMobile string                 `protobuf:"bytes,11,opt,name=RecipientMobile,proto3" json:"RecipientMobile,omitempty"`
 	Message         string                 `protobuf:"bytes,12,opt,name=Message,proto3" json:"Message,omitempty"`
 	Snapshot        string                 `protobuf:"bytes,13,opt,name=Snapshot,proto3" json:"Snapshot,omitempty"`
-	Goods           []*GoodsInfo           `protobuf:"bytes,14,rep,name=goods,proto3" json:"goods,omitempty"`
+	CreateAt        string                 `protobuf:"bytes,14,opt,name=Create_at,json=CreateAt,proto3" json:"Create_at,omitempty"`
+	Goods           []*GoodsInfo           `protobuf:"bytes,15,rep,name=goods,proto3" json:"goods,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -470,6 +463,13 @@ func (x *OrderDetailResp) GetSnapshot() string {
 	return ""
 }
 
+func (x *OrderDetailResp) GetCreateAt() string {
+	if x != nil {
+		return x.CreateAt
+	}
+	return ""
+}
+
 func (x *OrderDetailResp) GetGoods() []*GoodsInfo {
 	if x != nil {
 		return x.Goods
@@ -573,33 +573,28 @@ var File_order_proto protoreflect.FileDescriptor
 
 const file_order_proto_rawDesc = "" +
 	"\n" +
-	"\vorder.proto\"\x90\x02\n" +
+	"\vorder.proto\"\xac\x01\n" +
 	"\x0eCreateOrderReq\x12\x16\n" +
-	"\x06UserID\x18\x01 \x01(\x05R\x06UserID\x12\"\n" +
-	"\fSubjectTitle\x18\x02 \x01(\tR\fSubjectTitle\x12\x1e\n" +
-	"\n" +
-	"OrderPrice\x18\x03 \x01(\x01R\n" +
-	"OrderPrice\x12\x1e\n" +
-	"\n" +
-	"FinalPrice\x18\x04 \x01(\x01R\n" +
-	"FinalPrice\x12\x18\n" +
-	"\aAddress\x18\x05 \x01(\tR\aAddress\x12$\n" +
-	"\rRecipientName\x18\x06 \x01(\tR\rRecipientName\x12(\n" +
-	"\x0fRecipientMobile\x18\a \x01(\tR\x0fRecipientMobile\x12\x18\n" +
-	"\aMessage\x18\b \x01(\tR\aMessage\"B\n" +
+	"\x06UserID\x18\x01 \x01(\x05R\x06UserID\x12\x18\n" +
+	"\aAddress\x18\x02 \x01(\tR\aAddress\x12$\n" +
+	"\rRecipientName\x18\x03 \x01(\tR\rRecipientName\x12(\n" +
+	"\x0fRecipientMobile\x18\x04 \x01(\tR\x0fRecipientMobile\x12\x18\n" +
+	"\aMessage\x18\x05 \x01(\tR\aMessage\"B\n" +
 	"\n" +
 	"CreateResp\x12\x19\n" +
 	"\border_id\x18\x01 \x01(\x05R\aorderId\x12\x19\n" +
-	"\border_sn\x18\x02 \x01(\tR\aorderSn\">\n" +
-	"\fOrderListReq\x12\x12\n" +
-	"\x04page\x18\x03 \x01(\x05R\x04page\x12\x1a\n" +
-	"\bpageSize\x18\x04 \x01(\x05R\bpageSize\"K\n" +
+	"\border_sn\x18\x02 \x01(\tR\aorderSn\"W\n" +
+	"\fOrderListReq\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\x05R\x06userId\x12\x12\n" +
+	"\x04page\x18\x02 \x01(\x05R\x04page\x12\x1a\n" +
+	"\bpageSize\x18\x03 \x01(\x05R\bpageSize\"K\n" +
 	"\rOrderListResp\x12\x14\n" +
 	"\x05total\x18\x01 \x01(\x05R\x05total\x12$\n" +
-	"\x04data\x18\x02 \x03(\v2\x10.OrderDetailRespR\x04data\"F\n" +
+	"\x04data\x18\x02 \x03(\v2\x10.OrderDetailRespR\x04data\"_\n" +
 	"\x0eOrderDetailReq\x12\x19\n" +
 	"\border_id\x18\x01 \x01(\x05R\aorderId\x12\x19\n" +
-	"\border_sn\x18\x02 \x01(\tR\aorderSn\"\xb5\x03\n" +
+	"\border_sn\x18\x02 \x01(\tR\aorderSn\x12\x17\n" +
+	"\auser_id\x18\x03 \x01(\x05R\x06userId\"\xd2\x03\n" +
 	"\x0fOrderDetailResp\x12\x16\n" +
 	"\x06UserID\x18\x01 \x01(\x05R\x06UserID\x12\x18\n" +
 	"\aOrderSN\x18\x02 \x01(\tR\aOrderSN\x12\x18\n" +
@@ -618,8 +613,9 @@ const file_order_proto_rawDesc = "" +
 	" \x01(\tR\rRecipientName\x12(\n" +
 	"\x0fRecipientMobile\x18\v \x01(\tR\x0fRecipientMobile\x12\x18\n" +
 	"\aMessage\x18\f \x01(\tR\aMessage\x12\x1a\n" +
-	"\bSnapshot\x18\r \x01(\tR\bSnapshot\x12 \n" +
-	"\x05goods\x18\x0e \x03(\v2\n" +
+	"\bSnapshot\x18\r \x01(\tR\bSnapshot\x12\x1b\n" +
+	"\tCreate_at\x18\x0e \x01(\tR\bCreateAt\x12 \n" +
+	"\x05goods\x18\x0f \x03(\v2\n" +
 	".GoodsInfoR\x05goods\"\xc5\x01\n" +
 	"\tGoodsInfo\x12\x18\n" +
 	"\aOrderID\x18\x01 \x01(\x05R\aOrderID\x12\x18\n" +
