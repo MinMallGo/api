@@ -134,9 +134,9 @@ func PasswordLogin(ctx *gin.Context) {
 	// 验证图形验证码
 	if !utils.VerifyCaptcha(param.CaptchaID, param.Captcha) {
 		zap.L().Info("[PasswordLogin] 登录验证码验证失败")
-		ctx.JSON(http.StatusBadRequest, gin.H{
-			"msg": "验证码错误",
-		})
+		//ctx.JSON(http.StatusBadRequest, gin.H{
+		//	"msg": "验证码错误",
+		//})
 		//return
 	}
 
