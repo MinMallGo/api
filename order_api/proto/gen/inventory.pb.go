@@ -128,7 +128,8 @@ func (x *GetInfo) GetStock() int32 {
 
 type MultipleInfo struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Sell          []*SetInfo             `protobuf:"bytes,1,rep,name=sell,proto3" json:"sell,omitempty"`
+	OrderSN       string                 `protobuf:"bytes,1,opt,name=OrderSN,proto3" json:"OrderSN,omitempty"`
+	Sell          []*SetInfo             `protobuf:"bytes,2,rep,name=sell,proto3" json:"sell,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -161,6 +162,13 @@ func (x *MultipleInfo) ProtoReflect() protoreflect.Message {
 // Deprecated: Use MultipleInfo.ProtoReflect.Descriptor instead.
 func (*MultipleInfo) Descriptor() ([]byte, []int) {
 	return file_inventory_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *MultipleInfo) GetOrderSN() string {
+	if x != nil {
+		return x.OrderSN
+	}
+	return ""
 }
 
 func (x *MultipleInfo) GetSell() []*SetInfo {
@@ -232,9 +240,10 @@ const file_inventory_proto_rawDesc = "" +
 	"\x05stock\x18\x02 \x01(\x05R\x05stock\":\n" +
 	"\aGetInfo\x12\x19\n" +
 	"\bgoods_id\x18\x01 \x01(\x05R\agoodsId\x12\x14\n" +
-	"\x05stock\x18\x02 \x01(\x05R\x05stock\",\n" +
-	"\fMultipleInfo\x12\x1c\n" +
-	"\x04sell\x18\x01 \x03(\v2\b.SetInfoR\x04sell\"<\n" +
+	"\x05stock\x18\x02 \x01(\x05R\x05stock\"F\n" +
+	"\fMultipleInfo\x12\x18\n" +
+	"\aOrderSN\x18\x01 \x01(\tR\aOrderSN\x12\x1c\n" +
+	"\x04sell\x18\x02 \x03(\v2\b.SetInfoR\x04sell\"<\n" +
 	"\tStockResp\x12\x19\n" +
 	"\bgoods_id\x18\x01 \x01(\x05R\agoodsId\x12\x14\n" +
 	"\x05stock\x18\x02 \x01(\x05R\x05stock2\xc5\x01\n" +
