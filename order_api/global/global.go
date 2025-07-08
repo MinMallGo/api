@@ -16,9 +16,10 @@ type CrossService struct {
 }
 
 var (
-	Trans    ut.Translator
-	Cfg      *config2.Config = &config2.Config{}
-	Redis    *redis.Client   = &redis.Client{}
-	CrossSrv *CrossService   = &CrossService{}
-	JWTUser  string          = "claim"
+	Trans         ut.Translator
+	Cfg           *config2.Config = &config2.Config{}
+	Redis         *redis.Client   = &redis.Client{}
+	CrossSrv      *CrossService   = &CrossService{}
+	JWTUser       string          = "claim"
+	TracerCtxName string          = "traceparent"
 )

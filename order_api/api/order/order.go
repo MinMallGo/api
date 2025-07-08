@@ -5,6 +5,7 @@ import (
 	"api/order_api/forms"
 	"api/order_api/global"
 	proto "api/order_api/proto/gen"
+	"api/order_api/utils"
 	"context"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -26,7 +27,10 @@ func Create(c *gin.Context) {
 	// 获取用户id
 	// 需要商品id，数量
 
-	order, err := crv.OrderSrv.CreateOrder(context.Background(), &proto.CreateOrderReq{
+	ctx := utils.ExtFromGin(context.Background(), c)
+	// 添加了注入metadata
+	ctx = utils.InjectOTEL(ctx)
+	order, err := crv.OrderSrv.CreateOrder(ctx, &proto.CreateOrderReq{
 		UserID:          int32(user.ID),
 		Address:         param.Address,
 		RecipientName:   param.Name,
@@ -60,7 +64,12 @@ func Detail(c *gin.Context) {
 	if user.AuthorizationId == 1 {
 		userID = user.ID
 	}
-	detail, err := global.CrossSrv.OrderSrv.GetListDetail(context.Background(), &proto.OrderDetailReq{
+
+	ctx := utils.ExtFromGin(context.Background(), c)
+	// 添加了注入metadata
+	ctx = utils.InjectOTEL(ctx)
+
+	detail, err := global.CrossSrv.OrderSrv.GetListDetail(ctx, &proto.OrderDetailReq{
 		OrderId: int32(id),
 		//OrderSn: "", // 应该不需要通过订单号来获取账单详细吧
 		UserId: int32(userID),
@@ -92,7 +101,10 @@ func List(c *gin.Context) {
 		userID = user.ID
 	}
 
-	list, err := global.CrossSrv.OrderSrv.GetList(context.Background(), &proto.OrderListReq{
+	ctx := utils.ExtFromGin(context.Background(), c)
+	// 添加了注入metadata
+	ctx = utils.InjectOTEL(ctx)
+	list, err := global.CrossSrv.OrderSrv.GetList(ctx, &proto.OrderListReq{
 		UserId:   int32(userID),
 		Page:     int32(param.Page),
 		PageSize: int32(param.Size),

@@ -7,7 +7,7 @@ import (
 )
 
 func RegisterOrderRouter(group *gin.RouterGroup) {
-	g := group.Group("/order").Use(middleware.JwtAuth())
+	g := group.Group("/order").Use(middleware.JwtAuth()).Use(middleware.Trace())
 	{
 		g.GET("", order.List)
 		g.GET("/:id", order.Detail)

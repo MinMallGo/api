@@ -7,7 +7,7 @@ import (
 )
 
 func RegisterCartRouter(group *gin.RouterGroup) {
-	g := group.Group("/cart").Use(middleware.JwtAuth())
+	g := group.Group("/cart").Use(middleware.JwtAuth()).Use(middleware.Trace())
 	{
 		g.GET("", cart.List)           // 获取购物车列表
 		g.POST("", cart.Create)        // 添加到购物车
