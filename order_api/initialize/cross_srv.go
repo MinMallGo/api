@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	_ "github.com/mbobakov/grpc-consul-resolver" // It's important
+	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -20,9 +21,10 @@ func InitCrossSrv() {
 // ConnOrder 连接订单服务
 func ConnOrder() {
 	conn, err := grpc.NewClient(
-		fmt.Sprintf(`consul://%s:%d/%s?wait=14s`, "192.168.3.5", 8500, global.Cfg.CrossSrv.OrderSrv),
+		fmt.Sprintf(`consul://%s:%d/%s?wait=14s`, global.Cfg.Consul.Host, global.Cfg.Consul.Port, global.Cfg.CrossSrv.OrderSrv),
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy": "round_robin"}`),
+		grpc.WithUnaryInterceptor(otelgrpc.UnaryClientInterceptor()),
 	)
 	if err != nil {
 		zap.L().Fatal(fmt.Sprintf("【%s】服务获取失败：", global.Cfg.CrossSrv.OrderSrv), zap.Error(err))
@@ -35,9 +37,10 @@ func ConnOrder() {
 // ConnGoods goods-service
 func ConnGoods() {
 	conn, err := grpc.NewClient(
-		fmt.Sprintf(`consul://%s:%d/%s?wait=14s`, "192.168.3.5", 8500, global.Cfg.CrossSrv.GoodsSrv),
+		fmt.Sprintf(`consul://%s:%d/%s?wait=14s`, global.Cfg.Consul.Host, global.Cfg.Consul.Port, global.Cfg.CrossSrv.GoodsSrv),
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy": "round_robin"}`),
+		grpc.WithUnaryInterceptor(otelgrpc.UnaryClientInterceptor()),
 	)
 	if err != nil {
 		zap.L().Fatal(fmt.Sprintf("【%s】服务获取失败：", global.Cfg.CrossSrv.GoodsSrv), zap.Error(err))
@@ -49,9 +52,10 @@ func ConnGoods() {
 // ConnStock stock-service
 func ConnStock() {
 	conn, err := grpc.NewClient(
-		fmt.Sprintf(`consul://%s:%d/%s?wait=14s`, "192.168.3.5", 8500, global.Cfg.CrossSrv.InventorySrv),
+		fmt.Sprintf(`consul://%s:%d/%s?wait=14s`, global.Cfg.Consul.Host, global.Cfg.Consul.Port, global.Cfg.CrossSrv.InventorySrv),
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy": "round_robin"}`),
+		grpc.WithUnaryInterceptor(otelgrpc.UnaryClientInterceptor()),
 	)
 	if err != nil {
 		zap.L().Fatal(fmt.Sprintf("【%s】服务获取失败：", global.Cfg.CrossSrv.InventorySrv), zap.Error(err))
