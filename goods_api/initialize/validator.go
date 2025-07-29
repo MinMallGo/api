@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"api/goods_api/global"
-	validator2 "api/goods_api/validator"
 	"fmt"
+	"goods_api/global"
+	validator2 "goods_api/validator"
 
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/locales/en"

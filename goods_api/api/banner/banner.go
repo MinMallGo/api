@@ -1,12 +1,12 @@
 package banner
 
 import (
-	"api/goods_api/api"
-	"api/goods_api/forms"
-	"api/goods_api/global"
-	proto "api/goods_api/proto/gen"
 	"context"
 	"github.com/gin-gonic/gin"
+	"goods_api/api"
+	"goods_api/forms"
+	"goods_api/global"
+	proto "goods_api/proto/gen"
 	"net/http"
 	"strconv"
 )

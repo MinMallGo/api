@@ -1,10 +1,10 @@
 package api
 
 import (
-	"api/goods_api/global"
 	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"goods_api/global"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"net/http"

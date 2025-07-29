@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	"api/goods_api/router"
+	"goods_api/router"
 
 	"github.com/gin-gonic/gin"
 )

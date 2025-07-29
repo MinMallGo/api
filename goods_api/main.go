@@ -1,10 +1,10 @@
 package main
 
 import (
-	"api/goods_api/global"
-	"api/goods_api/initialize"
-	"api/goods_api/middleware"
-	"api/goods_api/utils/register"
+	"goods_api/global"
+	"goods_api/initialize"
+	"goods_api/middleware"
+	"goods_api/utils/register"
 	"os"
 	"os/signal"
 	"strconv"
@@ -37,6 +37,8 @@ func main() {
 	initialize.InitRedis()
 	// 初始化grpc user-service 的连接
 	initialize.InitGoosSrv()
+	// 初始化限流器
+	initialize.InitSentinel()
 	// 优雅地注册到注册中心
 	rc := register.NewConsulRegistry(global.Cfg.Consul.Host, global.Cfg.Consul.Port)
 	id := uuid.New().String()

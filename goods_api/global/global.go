@@ -1,8 +1,8 @@
 package global
 
 import (
-	config2 "api/goods_api/config"
-	proto "api/goods_api/proto/gen"
+	config2 "goods_api/config"
+	proto "goods_api/proto/gen"
 
 	ut "github.com/go-playground/universal-translator"
 	"github.com/redis/go-redis/v9"

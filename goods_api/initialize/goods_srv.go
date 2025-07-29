@@ -1,9 +1,10 @@
 package initialize
 
 import (
-	"api/goods_api/global"
-	proto "api/goods_api/proto/gen"
 	"fmt"
+	"goods_api/global"
+	"goods_api/middleware"
+	proto "goods_api/proto/gen"
 
 	_ "github.com/mbobakov/grpc-consul-resolver" // It's important
 	"go.uber.org/zap"
@@ -16,10 +17,12 @@ func InitGoosSrv() {
 		fmt.Sprintf(`consul://%s:%d/%s?wait=14s`, global.Cfg.Consul.Host, global.Cfg.Consul.Port, global.Cfg.GoodsServer.Name),
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy": "round_robin"}`),
+		grpc.WithUnaryInterceptor(middleware.UnaryServerInterceptor()), // 添加一个限流器
 	)
 	if err != nil {
 		zap.L().Fatal("【InitGoosSrv】服务获取失败：", zap.Error(err))
 	}
+	zap.L().Info("<UNK>InitGoosSrv<UNK>", zap.Any("<conn_consul>", fmt.Sprintf(`consul://%s:%d/%s?wait=14s`, global.Cfg.Consul.Host, global.Cfg.Consul.Port, global.Cfg.GoodsServer.Name)))
 
 	global.GoodsSrv = &global.GoodsService{
 		Goods:         proto.NewGoodsClient(conn),

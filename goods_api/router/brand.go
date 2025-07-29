@@ -1,9 +1,9 @@
 package router
 
 import (
-	"api/goods_api/api/brand"
-	"api/goods_api/middleware"
 	"github.com/gin-gonic/gin"
+	"goods_api/api/brand"
+	"goods_api/middleware"
 )
 
 func RegisterBrandRouter(group *gin.RouterGroup) {

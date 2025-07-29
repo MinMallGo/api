@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"api/goods_api/structure"
+	"goods_api/structure"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

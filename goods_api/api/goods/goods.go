@@ -1,12 +1,13 @@
 package goods
 
 import (
-	"api/goods_api/api"
-	"api/goods_api/forms"
-	"api/goods_api/global"
-	proto "api/goods_api/proto/gen"
 	"context"
+	sentinel "github.com/alibaba/sentinel-golang/api"
 	"github.com/gin-gonic/gin"
+	"goods_api/api"
+	"goods_api/forms"
+	"goods_api/global"
+	proto "goods_api/proto/gen"
 	"log"
 	"net/http"
 	"strconv"
@@ -49,9 +50,15 @@ func List(c *gin.Context) {
 		KeyWord:     keyWord,
 		Brand:       int32(brand),
 	}
-
+	e, b := sentinel.Entry("goods-list")
+	if b != nil {
+		c.JSON(http.StatusTooManyRequests, gin.H{
+			"msg": "请求过于频繁，请稍后再试",
+		})
+		return
+	}
 	list, err := global.GoodsSrv.Goods.GoodsList(context.Background(), req)
-
+	e.Exit()
 	if err != nil {
 		api.HandleGrpcErr(c, err)
 		return

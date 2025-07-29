@@ -1,8 +1,8 @@
 package router
 
 import (
-	"api/goods_api/api/goods"
-	"api/goods_api/middleware"
+	"goods_api/api/goods"
+	"goods_api/middleware"
 
 	"github.com/gin-gonic/gin"
 )

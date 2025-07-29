@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	config2 "api/goods_api/config"
-	"api/goods_api/global"
-	"api/goods_api/structure"
+	config2 "goods_api/config"
+	"goods_api/global"
+	"goods_api/structure"
 	"log"
 	"testing"
 	"time"

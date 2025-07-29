@@ -1,8 +1,8 @@
 package initialize
 
 import (
-	"api/goods_api/global"
 	"fmt"
+	"goods_api/global"
 
 	"github.com/redis/go-redis/v9"
 )

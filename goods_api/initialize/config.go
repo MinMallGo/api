@@ -14,8 +14,8 @@ import (
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 
-	"api/goods_api/config"
-	"api/goods_api/global"
+	"goods_api/config"
+	"goods_api/global"
 )
 
 /*
@@ -66,7 +66,7 @@ func InitConfig() {
 
 	err = json.Unmarshal([]byte(cnf), &global.Cfg)
 	if err != nil {
-		zap.L().Fatal("[InitConfig].[json.Unmarshal] with error:", zap.Error(err))
+		zap.L().Fatal("[InitConfig].[json.Unmarshal] with error:", zap.Error(err), zap.Any("cnf", cnf))
 	}
 	zap.L().Info("[InitConfig] <UNK>", zap.Any("cnf", cnf))
 }

@@ -1,0 +1,44 @@
+[
+  {
+    "ID": 1,
+    "Name": "电子产品",
+    "Level": 1,
+    "ParentCategoryID":0,
+    "IsTab": true
+  },
+  {
+    "ID": 2,
+    "Name": "服装鞋帽",
+    "Level": 1,
+    "ParentCategoryID": 1,
+    "IsTab": true
+  },
+  {
+    "ID": 3,
+    "Name": "家居生活",
+    "Level": 1,
+    "ParentCategoryID": 2,
+    "IsTab": true
+  },
+  {
+    "ID": 4,
+    "Name": "美妆护肤",
+    "Level": 1,
+    "ParentCategoryID": 0,
+    "IsTab": true
+  },
+  {
+    "ID": 5,
+    "Name": "食品饮料",
+    "Level": 1,
+    "ParentCategoryID": 4,
+    "IsTab": true
+  },
+  {
+    "ID": 6,
+    "Name": "运动户外",
+    "Level": 1,
+    "ParentCategoryID": 5,
+    "IsTab": true
+  }
+]
